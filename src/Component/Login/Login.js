@@ -15,12 +15,20 @@ const Login = (props) => {
   const [collageNameIsValid, setCollageNameIsValid] = useState();
 
   useEffect(()=>{
-    setFormIsValid(
-      enteredEmail.includes('@') && 
-      enteredPassword.trim().length > 6 &&
-      enteredCollageName.trim() !== ''
-    );
-  },[ enteredEmail, enteredPassword, enteredCollageName]);
+    const identifire = setTimeout(()=>{
+      console.log('checking from validity');
+      setFormIsValid(
+        enteredEmail.includes('@') && 
+        enteredPassword.trim().length > 6 &&
+        enteredCollageName.trim() !== ''
+      );
+    },500);
+    
+    return () =>{
+      console.log("cleanup")
+      clearTimeout(identifire);
+    }
+  }, [ enteredEmail, enteredPassword, enteredCollageName]);
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
